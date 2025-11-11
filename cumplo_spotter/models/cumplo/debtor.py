@@ -44,7 +44,7 @@ class Debtor(BaseModel):
     economic_sector: str | None = Field(None, alias="giro_detalle")
     portfolio: DebtorPortfolio = Field(..., alias="historial")
     description: str | None = Field(..., alias="descripcion")
-    first_appearance: datetime = Field(..., alias="fecha_primera_operacion")
+    first_appearance: datetime | None = Field(None, alias="fecha_primera_operacion")
     dicom: bool | None = Field(None)
 
     @field_validator("name", mode="before")
