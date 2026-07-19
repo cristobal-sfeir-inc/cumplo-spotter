@@ -8,6 +8,10 @@ concurrency:
   group: lint-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  id-token: write # mint OIDC token for Workload Identity Federation
+
 jobs:
   lint:
     name: Lint & type-check
@@ -31,6 +35,15 @@ jobs:
         with:
           path: .venv
           key: venv-${{ runner.os }}-py3.13-${{ hashFiles('poetry.lock') }}
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.PUBLISH_SA }}
+
+      - name: Configure Poetry auth for Artifact Registry
+        run: poetry config http-basic.cumplo-pypi oauth2accesstoken "$(gcloud auth print-access-token)"
 
       - name: Install dependencies
         run: poetry install --no-interaction
