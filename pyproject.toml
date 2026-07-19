@@ -93,3 +93,4 @@ wrap-descriptions = 120
 wrap-summaries = 120
 recursive = true
 blank = true
+exclude = [".venv"]
