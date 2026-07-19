@@ -41,7 +41,7 @@ jobs:
         uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
-          service_account: ${{ vars.PUBLISH_SA }}
+          service_account: ${{ vars.READER_SA }}
           token_format: access_token
 
       - name: Configure Poetry auth for Artifact Registry
