@@ -33,6 +33,7 @@ GOVERNMENT_TREASURY_DEBT_MARKER = [
 @dataclass
 class DicomMarker:
     """Namespace for DICOM status text markers found in Cumplo's funding request descriptions."""
+
     BOTH_TRUE = "DEUDOR Y CLIENTE CON DICOM"
     BOTH_FALSE = "DEUDOR Y CLIENTE SIN DICOM"
     DEBTOR_TRUE = "DEUDOR CON DICOM"
