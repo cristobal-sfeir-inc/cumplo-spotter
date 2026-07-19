@@ -1,3 +1,5 @@
+"""Pydantic models for Cumplo funding request simulation results."""
+
 from datetime import datetime
 from typing import Self
 
@@ -8,6 +10,8 @@ from cumplo_spotter.utils.constants import EXIT_FEE_KEY, SIMULATION_AMOUNT, UPFR
 
 
 class CumploSimulationInstallment(BaseModel):
+    """A single installment within a Cumplo funding request simulation."""
+
     capital: int = Field(..., alias="capital")
     interest: int = Field(..., alias="interes")
     amount: int = Field(..., alias="montoPagar")
@@ -31,6 +35,8 @@ class CumploSimulationInstallment(BaseModel):
 
 
 class CumploFundingRequestSimulation(BaseModel):
+    """Parsed simulation result for a Cumplo funding request."""
+
     exit_fee: int = Field(...)
     upfront_fee: int = Field(...)
     net_returns: int = Field(...)

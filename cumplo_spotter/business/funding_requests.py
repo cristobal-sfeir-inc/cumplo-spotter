@@ -1,3 +1,5 @@
+"""Business logic for retrieving and filtering funding requests."""
+
 from logging import getLogger
 
 from cumplo_common.models import FilterConfiguration, FundingRequest, User

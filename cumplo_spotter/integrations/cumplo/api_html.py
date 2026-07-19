@@ -1,3 +1,5 @@
+"""Client for Cumplo's HTML (web scraping) API."""
+
 from http import HTTPMethod
 from logging import getLogger
 

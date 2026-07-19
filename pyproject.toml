@@ -6,7 +6,7 @@ authors = ["Cristobal Sfeir <hello@cristobalsfeir.com>"]
 packages = [{ include = "cumplo_spotter" }]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.13"
 requests = "^2.28.1"
 arrow = "^1.2.3"
 pydantic = "^2.1.1"
@@ -23,8 +23,8 @@ cumplo-common = { version = "^1.12.7", source = "cumplo-pypi" }
 cachetools = "^5.5.0"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.13.0"
-ruff = "^0.7.1"
+ruff = "^0.8.0"
+basedpyright = ">=1.0"
 docformatter = "^1.7.5"
 
 [[tool.poetry.source]]
@@ -36,63 +36,60 @@ priority = "supplemental"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.mypy]
-python_version = "3.12"
-disallow_untyped_defs = true
-exclude = ".venv"
-
-[[tool.mypy.overrides]]
-module = [
-    "requests.*",
-    "pydantic.*",
-    "psycopg2.*",
-    "lxml.*",
-    "babel.*",
-    "bs4.*",
-    "functions_framework.*",
-    "firebase_admin.*",
-    "retry.*",
-    "starlette.*",
-    "cachetools.*",
-]
-ignore_missing_imports = true
+[tool.pyright]
+pythonVersion = "3.13"
+typeCheckingMode = "standard"
+reportMissingModuleSource = false
 
 [tool.ruff]
 line-length = 120
-target-version = "py312"
+target-version = "py313"
 preview = true
+fix = true
 
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "ANN101",  # Missing type annotation for self in method
-    "ANN102",  # Missing type annotation for cls in method
-    "ANN401",  # Dynamically typed expressions (typing.Any) are disallowed
-    "D100",    # Missing docstring in public module
-    "D107",    # Missing docstring in __init__
-    "D105",    # Missing docstring in magic method
-    "D212",    # Multi-line docstring summary should start at the second line
-    "D203",    # One blank line required before class docstring
-    "D101",    # Missing docstring in public class
-    "D104",    # Missing docstring in public package
-    "G004",    # Logging statement uses string formatting
-    "S113",    # Use of requests call without timeout
-    "DOC201",  # Missing documentation for `return` in docstring
-    "COM812",  # Missing trailing comma in a dictionary
-    "ISC001",  # Implicit string concatenation
-    "CPY001",  # Copying notice
+  "ANN401",                              # allow typing.Any
+  "D107",                                # no docstring required in __init__
+  "D212", "D203",                        # docstring-layout style choices
+  "D104",                                # no docstring required in public package
+  "G004",                                # allow f-strings in logging
+  "S113",                                # allow requests without explicit timeout
+  "DOC201", "DOC501", "DOC402",          # don't force return/raise/yield docs
+  "COM812", "ISC001",                    # defer to the formatter (avoid conflicts)
+  "CPY001",                              # no copyright header
+  "TRY003", "TRY300", "TRY301",          # relaxed exception-message/flow rules
+  "EM101", "EM102",                      # allow literals / f-strings in exceptions
+  "RUF012",                              # class vars without ClassVar
+  "S101",                                # allow assert
+  "BLE001",                              # allow broad except Exception
+  "TC006",                               # cast without quotes
+  "B904",                                # raise without from
+  "RUF005",                              # allow list concat
+  "TD002", "TD003", "FIX002", "FIX004",  # allow TODO/HACK comments
+  "RET503",                              # allow implicit None return
+  "ERA001",                              # allow commented-out code
+  "RUF018",                              # assert on walrus
+  "PGH003",                              # allow blanket pyright ignores
+  "PLW3201",                             # dunder method naming
+  "SLF001",                              # access to private attributes
+  "FAST002",                             # FastAPI dependency without Annotated (we are FastAPI)
+  "B008",                                # function call in defaults, e.g. Depends(...) (FastAPI)
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
+"tests/**" = ["ANN201", "ANN001", "ANN202", "D100", "PLC0415", "PLC2701", "ARG001"]
+"tests/**/*_test.py" = ["D101", "D103", "D102", "D205", "FBT001", "PLR2004", "PLR6301", "PT019", "RUF029"]
 
 [tool.ruff.format]
-docstring-code-format = false
+docstring-code-format = true
 docstring-code-line-length = 120
 
 [tool.docformatter]
-pre-summary-newline = true # Ensures that multiline docstrings start on a new line.
-wrap-descriptions = 120    # Wraps descriptions at 114 characters, ensuring consistent line width.
-wrap-summaries = 120       # Wraps summary lines only if they exceed 114 characters.
-recursive = true           # Recursively formats all Python files in the specified directories.
-blank = true               # Adds a blank line before the end of multiline docstrings.
+pre-summary-newline = true
+wrap-descriptions = 120
+wrap-summaries = 120
+recursive = true
+blank = true

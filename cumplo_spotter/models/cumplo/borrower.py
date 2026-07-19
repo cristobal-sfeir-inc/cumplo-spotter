@@ -1,4 +1,4 @@
-# mypy: disable-error-code="call-overload"
+"""Pydantic models for Cumplo borrower data, including portfolio history."""
 
 from datetime import datetime
 from typing import Any, ClassVar
@@ -11,6 +11,8 @@ from .portfolio import Portfolio
 
 
 class BorrowerPortfolio(Portfolio):
+    """Portfolio history for a funding request's borrower (solicitante)."""
+
     PORTFOLIO_STATUS_MAPPING: ClassVar[dict] = {
         # ON TIME
         "cantidad_pagadas_plazo_normal_solicitante": {"status": PortfolioCategory.ON_TIME, "type": "count"},
@@ -45,6 +47,8 @@ class BorrowerPortfolio(Portfolio):
 
 
 class Borrower(BaseModel):
+    """Pydantic model for a funding request's borrower (solicitante)."""
+
     id: int | None = Field(None)
     name: str | None = Field(None, alias="nombre_solicitante")
     average_days_delinquent: int | None = Field(None)

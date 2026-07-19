@@ -1,3 +1,5 @@
+"""Client for Cumplo's Global REST API (funding request details and simulations)."""
+
 from decimal import Decimal
 from functools import cached_property
 from http import HTTPMethod
@@ -23,6 +25,8 @@ logger = getLogger(__name__)
 
 
 class GlobalFundingRequest(BaseModel):
+    """Lightweight funding request record returned by Cumplo's Global API listing endpoint."""
+
     id: int = Field(...)
     score: Decimal = Field(...)
     irr: Decimal = Field(..., alias="tir")

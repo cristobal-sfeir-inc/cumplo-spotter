@@ -1,3 +1,5 @@
+"""Pydantic models for Cumplo portfolio (historial) data."""
+
 from decimal import Decimal
 from typing import ClassVar
 
@@ -5,11 +7,15 @@ from pydantic import BaseModel, Field, model_validator
 
 
 class PortfolioUnit(BaseModel):
+    """A single portfolio metric bucket holding an amount and a count."""
+
     amount: Decimal = Field(...)
     count: int = Field(...)
 
 
 class Portfolio(BaseModel):
+    """Aggregated portfolio history broken down by loan status category."""
+
     cured: PortfolioUnit = Field(...)
     active: PortfolioUnit = Field(...)
     overdue: PortfolioUnit = Field(...)

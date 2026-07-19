@@ -1,3 +1,5 @@
+"""Pydantic models for Cumplo debtor (pagador) data, including portfolio history."""
+
 from datetime import datetime
 from decimal import Decimal
 from typing import Any, ClassVar
@@ -10,6 +12,8 @@ from .portfolio import Portfolio
 
 
 class DebtorPortfolio(Portfolio):
+    """Portfolio history for a funding request's debtor (pagador)."""
+
     PORTFOLIO_STATUS_MAPPING: ClassVar[dict] = {
         # ON TIME
         "cantidad_pagadas_plazo_normal_pagador": {"status": PortfolioCategory.ON_TIME, "type": "count"},
@@ -39,6 +43,8 @@ class DebtorPortfolio(Portfolio):
 
 
 class Debtor(BaseModel):
+    """Pydantic model for a funding request's debtor (pagador)."""
+
     share: Decimal = Field(..., alias="participacion")
     name: str | None = Field(None, alias="nombre_pagador")
     economic_sector: str | None = Field(None, alias="giro_detalle")
