@@ -46,7 +46,7 @@ CREDIT_TYPE_TRANSLATIONS = {
     CumploCreditType.CREDITO_CONTRATO: CreditType.WORKING_CAPITAL,
     CumploCreditType.SHORT_TERM_CAPITAL: CreditType.WORKING_CAPITAL,
     CumploCreditType.CREDITO_ORDEN_COMPRA: CreditType.WORKING_CAPITAL,
-    # TODO: Check if EXTENSION_PLAZO_PAGO is actually working capital  # noqa: TD002, TD003, FIX002
+    # TODO: Check if EXTENSION_PLAZO_PAGO is actually working capital
     CumploCreditType.EXTENSION_PLAZO_PAGO: CreditType.WORKING_CAPITAL,
     CumploCreditType.INVOICE: CreditType.FACTORING,
     CumploCreditType.FACTURA_FUTURA: CreditType.FACTORING,
