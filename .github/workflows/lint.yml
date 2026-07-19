@@ -22,9 +22,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          # Pinned to 3.13.5: docformatter 1.7.8 crashes on 3.13.6+ (tokenize.untokenize
-          # regression, upstream issue PyCQA/docformatter#347, no fix released yet).
-          python-version: "3.13.5"
+          # Pinned to 3.12: docformatter 1.7.8 crashes on all Python 3.13.x
+          # (tokenize.untokenize regression; upstream fix not yet released as of 2026-07-19).
+          # Restore "3.13" once docformatter 1.7.9 ships with the fix (PyCQA/docformatter#360).
+          python-version: "3.12"
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -36,7 +37,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-py3.13-${{ hashFiles('poetry.lock') }}
+          key: venv-${{ runner.os }}-py3.12-${{ hashFiles('poetry.lock') }}
 
       - name: Authenticate to Google Cloud
         id: auth
