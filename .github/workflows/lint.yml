@@ -38,13 +38,15 @@ jobs:
           key: venv-${{ runner.os }}-py3.13-${{ hashFiles('poetry.lock') }}
 
       - name: Authenticate to Google Cloud
+        id: auth
         uses: google-github-actions/auth@v3
         with:
           workload_identity_provider: ${{ vars.WIF_PROVIDER }}
-          service_account: ${{ vars.PUBLISH_SA }}
+          service_account: ${{ vars.READER_SA }}
+          token_format: access_token
 
       - name: Configure Poetry auth for Artifact Registry
-        run: poetry config http-basic.cumplo-pypi oauth2accesstoken "$(gcloud auth print-access-token)"
+        run: poetry config http-basic.cumplo-pypi oauth2accesstoken "${{ steps.auth.outputs.access_token }}"
 
       - name: Install dependencies
         run: poetry install --no-interaction
