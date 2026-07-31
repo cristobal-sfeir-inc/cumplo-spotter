@@ -1,3 +1,5 @@
+"""Orchestrates parallel retrieval of funding request details from the Cumplo API."""
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from logging import getLogger
 

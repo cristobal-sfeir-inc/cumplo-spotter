@@ -1,3 +1,5 @@
+"""Public FastAPI routes for funding request retrieval and filtering."""
+
 from http import HTTPStatus
 from logging import getLogger
 from typing import cast

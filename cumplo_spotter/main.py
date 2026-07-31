@@ -1,3 +1,5 @@
+"""FastAPI application entry point for the cumplo-spotter service."""
+
 from logging import CRITICAL, DEBUG, INFO, basicConfig, getLogger
 
 import google.cloud.logging

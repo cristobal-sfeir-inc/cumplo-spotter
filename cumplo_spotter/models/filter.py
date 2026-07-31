@@ -1,3 +1,5 @@
+"""Filter classes that reduce a list of funding requests based on a FilterConfiguration."""
+
 from abc import ABC, abstractmethod
 from logging import getLogger
 from typing import final
@@ -10,6 +12,8 @@ logger = getLogger(__name__)
 
 
 class Filter(ABC):
+    """Abstract base class for funding request filters."""
+
     def __init__(self, configuration: FilterConfiguration) -> None:
         self.configuration = configuration
 
@@ -26,6 +30,8 @@ class Filter(ABC):
 
 
 class CreditTypeFilter(Filter):
+    """Exclude funding requests whose credit type is not in the configured target set."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that don't have the target credit types."""
         if self.configuration.target_credit_types is None:
@@ -35,6 +41,8 @@ class CreditTypeFilter(Filter):
 
 
 class MinimumInvestmentFilter(Filter):
+    """Exclude funding requests whose available investment is below the configured minimum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have a available investment lower than the minimum."""
         if self.configuration.minimum_investment_amount is None:
@@ -44,6 +52,8 @@ class MinimumInvestmentFilter(Filter):
 
 
 class MinimumAmountFilter(Filter):
+    """Exclude funding requests whose total amount is below the configured minimum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have a available investment lower than the minimum."""
         if self.configuration.minimum_amount is None:
@@ -53,6 +63,8 @@ class MinimumAmountFilter(Filter):
 
 
 class MinimumScoreFilter(Filter):
+    """Exclude funding requests whose score is below the configured minimum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have a score lower than the minimum."""
         if self.configuration.minimum_score is None:
@@ -62,6 +74,8 @@ class MinimumScoreFilter(Filter):
 
 
 class MinimumMonthlyProfitFilter(Filter):
+    """Exclude funding requests whose monthly profit rate is below the configured minimum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have a monthly profit lower than the minimum."""
         if self.configuration.minimum_monthly_profit_rate is None:
@@ -71,6 +85,8 @@ class MinimumMonthlyProfitFilter(Filter):
 
 
 class MinimumIRRFilter(Filter):
+    """Exclude funding requests whose internal rate of return is below the configured minimum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have an IRR lower than the minimum."""
         if self.configuration.minimum_irr is None:
@@ -80,6 +96,8 @@ class MinimumIRRFilter(Filter):
 
 
 class MinimumDurationFilter(Filter):
+    """Exclude funding requests whose duration is shorter than the configured minimum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have a duration lower than the minimum."""
         if self.configuration.minimum_duration is None:
@@ -94,6 +112,8 @@ class MinimumDurationFilter(Filter):
 
 
 class MaximumDurationFilter(Filter):
+    """Exclude funding requests whose duration exceeds the configured maximum."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests that have a duration greater than the maximum."""
         if self.configuration.maximum_duration is None:
@@ -108,6 +128,8 @@ class MaximumDurationFilter(Filter):
 
 
 class DicomFilter(Filter):
+    """Exclude funding requests where any debtor or borrower has a DICOM credit flag."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         """Filter out the funding requests whose debtor has DICOM."""
         if self.configuration.ignore_dicom:
@@ -118,6 +140,8 @@ class DicomFilter(Filter):
 
 
 class PortfolioFilter(Filter):
+    """Exclude funding requests whose portfolio metrics fall outside the configured thresholds."""
+
     def _apply(self, funding_request: FundingRequest) -> bool:
         if not self.configuration.portfolio:
             return True

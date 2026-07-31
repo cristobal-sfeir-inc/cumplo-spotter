@@ -1,3 +1,5 @@
+"""Private (admin) FastAPI routes for fetching and publishing funding requests."""
+
 from http import HTTPStatus
 from logging import getLogger
 from typing import cast

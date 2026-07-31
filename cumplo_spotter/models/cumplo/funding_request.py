@@ -1,3 +1,5 @@
+"""Pydantic model for Cumplo funding requests, including credit type mapping and DICOM parsing."""
+
 from decimal import Decimal
 from enum import StrEnum
 from functools import cached_property
@@ -15,6 +17,8 @@ from cumplo_spotter.utils.constants import DicomMarker
 
 
 class CumploCreditType(StrEnum):
+    """Cumplo-specific credit type codes as returned by the API."""
+
     ONE_SHOT = "ONE_SHOT"
     ANTICIPO_RIEGO = "ANTICIPO_RIEGO"
     FACTURA_FUTURA = "FACTURA_FUTURA"
@@ -42,7 +46,7 @@ CREDIT_TYPE_TRANSLATIONS = {
     CumploCreditType.CREDITO_CONTRATO: CreditType.WORKING_CAPITAL,
     CumploCreditType.SHORT_TERM_CAPITAL: CreditType.WORKING_CAPITAL,
     CumploCreditType.CREDITO_ORDEN_COMPRA: CreditType.WORKING_CAPITAL,
-    # TODO: Check if EXTENSION_PLAZO_PAGO is actually working capital  # noqa: TD002, TD003, FIX002
+    # TODO: Check if EXTENSION_PLAZO_PAGO is actually working capital
     CumploCreditType.EXTENSION_PLAZO_PAGO: CreditType.WORKING_CAPITAL,
     CumploCreditType.INVOICE: CreditType.FACTORING,
     CumploCreditType.FACTURA_FUTURA: CreditType.FACTORING,
@@ -55,6 +59,8 @@ CREDIT_TYPE_TRANSLATIONS = {
 
 
 class CumploFundingRequest(BaseModel):
+    """Pydantic model for a Cumplo funding request, including DICOM parsing and export to common domain."""
+
     id: int = Field(..., alias="id_operacion")
     score: Decimal = Field(...)
     irr: Decimal = Field(..., alias="tir")
