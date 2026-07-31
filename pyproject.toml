@@ -50,38 +50,38 @@ fix = true
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-  "any-type",                              # allow typing.Any
-  "undocumented-public-init",                                # no docstring required in __init__
-  "multi-line-summary-first-line", "incorrect-blank-line-before-class",                        # docstring-layout style choices
-  "undocumented-public-package",                                # no docstring required in public package
-  "logging-f-string",                                # allow f-strings in logging
-  "request-without-timeout",                                # allow requests without explicit timeout
-  "docstring-missing-returns", "docstring-missing-exception", "docstring-missing-yields",          # don't force return/raise/yield docs
-  "missing-trailing-comma", "single-line-implicit-string-concatenation",                    # defer to the formatter (avoid conflicts)
-  "missing-copyright-notice",                              # no copyright header
-  "raise-vanilla-args", "try-consider-else", "raise-within-try",          # relaxed exception-message/flow rules
-  "raw-string-in-exception", "f-string-in-exception",                      # allow literals / f-strings in exceptions
-  "mutable-class-default",                              # class vars without ClassVar
-  "assert",                                # allow assert
-  "blind-except",                              # allow broad except Exception
-  "runtime-cast-value",                               # cast without quotes
-  "raise-without-from-inside-except",                                # raise without from
-  "collection-literal-concatenation",                              # allow list concat
-  "missing-todo-author", "missing-todo-link", "line-contains-todo", "line-contains-hack",  # allow TODO/HACK comments
-  "implicit-return",                              # allow implicit None return
-  "commented-out-code",                              # allow commented-out code
-  "assignment-in-assert",                              # assert on walrus
-  "blanket-type-ignore",                              # allow blanket pyright ignores
-  "bad-dunder-method-name",                             # dunder method naming
-  "private-member-access",                              # access to private attributes
-  "fast-api-non-annotated-dependency",                             # FastAPI dependency without Annotated (we are FastAPI)
-  "function-call-in-default-argument",                                # function call in defaults, e.g. Depends(...) (FastAPI)
+  "ANN401",                              # allow typing.Any
+  "D107",                                # no docstring required in __init__
+  "D212", "D203",                        # docstring-layout style choices
+  "D104",                                # no docstring required in public package
+  "G004",                                # allow f-strings in logging
+  "S113",                                # allow requests without explicit timeout
+  "DOC201", "DOC501", "DOC402",          # don't force return/raise/yield docs
+  "COM812", "ISC001",                    # defer to the formatter (avoid conflicts)
+  "CPY001",                              # no copyright header
+  "TRY003", "TRY300", "TRY301",          # relaxed exception-message/flow rules
+  "EM101", "EM102",                      # allow literals / f-strings in exceptions
+  "RUF012",                              # class vars without ClassVar
+  "S101",                                # allow assert
+  "BLE001",                              # allow broad except Exception
+  "TC006",                               # cast without quotes
+  "B904",                                # raise without from
+  "RUF005",                              # allow list concat
+  "TD002", "TD003", "FIX002", "FIX004",  # allow TODO/HACK comments
+  "RET503",                              # allow implicit None return
+  "ERA001",                              # allow commented-out code
+  "RUF018",                              # assert on walrus
+  "PGH003",                              # allow blanket pyright ignores
+  "PLW3201",                             # dunder method naming
+  "SLF001",                              # access to private attributes
+  "FAST002",                             # FastAPI dependency without Annotated (we are FastAPI)
+  "B008",                                # function call in defaults, e.g. Depends(...) (FastAPI)
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["unused-import"]
-"tests/**" = ["missing-return-type-undocumented-public-function", "missing-type-function-argument", "missing-return-type-private-function", "undocumented-public-module", "import-outside-top-level", "import-private-name", "unused-function-argument"]
-"tests/**/*_test.py" = ["undocumented-public-class", "undocumented-public-function", "undocumented-public-method", "missing-blank-line-after-summary", "boolean-type-hint-positional-argument", "magic-value-comparison", "no-self-use", "pytest-fixture-param-without-value", "unused-async"]
+"__init__.py" = ["F401"]
+"tests/**" = ["ANN201", "ANN001", "ANN202", "D100", "PLC0415", "PLC2701", "ARG001"]
+"tests/**/*_test.py" = ["D101", "D103", "D102", "D205", "FBT001", "PLR2004", "PLR6301", "PT019", "RUF029"]
 
 [tool.ruff.format]
 docstring-code-format = true
