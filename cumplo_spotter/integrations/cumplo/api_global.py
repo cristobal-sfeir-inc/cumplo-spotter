@@ -97,7 +97,7 @@ class CumploGlobalAPI:
             funding_request (GlobalFundingRequest): The funding request information
             due_date (str): The due date of the funding request
         Returns:
-            dict: The funding request information
+            The funding request information
 
         """
         logger.debug(f"Simulating funding request {funding_request.id} from Cumplo's Global API")

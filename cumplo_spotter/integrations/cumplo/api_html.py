@@ -42,11 +42,11 @@ class CumploHTMLAPI:
         Args:
             id_funding_request (int): The ID of the funding request
 
-        Raises:
-            NoResultFoundError: If the funding request information is not available
-
         Returns:
             BeautifulSoup: The parsed HTML of the funding request
+
+        Raises:
+            NoResultFoundError: If the funding request information is not available
 
         """
         logger.debug(f"Getting funding request {id_funding_request} from Cumplo's HTML API")

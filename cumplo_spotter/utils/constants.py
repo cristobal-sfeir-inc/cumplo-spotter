@@ -1,7 +1,6 @@
 """Environment-backed constants and shared configuration for cumplo-spotter."""
 
 import os
-from dataclasses import dataclass
 
 from dotenv import load_dotenv
 
@@ -30,7 +29,6 @@ GOVERNMENT_TREASURY_DEBT_MARKER = [
 ]
 
 
-@dataclass
 class DicomMarker:
     """Namespace for DICOM status text markers found in Cumplo's funding request descriptions."""
 
